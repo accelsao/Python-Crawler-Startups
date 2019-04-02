@@ -1,3 +1,6 @@
 # Python-Crawler-Startups
 
-Learn craw from here [Python-crawler-tutorial-starts-from-zero](https://github.com/CriseLYJ/Python-crawler-tutorial-starts-from-zero/blob/master/code_demo/douban.py)
+Learn python-crawler [here](https://github.com/CriseLYJ/Python-crawler-tutorial-starts-from-zero)
+
+
+Learn Regex [here](https://github.com/ziishaned/learn-regex/blob/master/README.md)
