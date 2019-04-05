@@ -1,5 +1,6 @@
-- [ ] 增加搜尋關鍵字
-- [ ] add more mode
+- [X] 搜尋關鍵字 sort_key= 最新
+- [ ] 搜尋關鍵字 sort_key= 愛心
+- [ ] 搜尋關鍵字 sort_key= 收藏
 
 
 [Online regex tester and debugger](https://regex101.com/r/tUxrBG/1)
