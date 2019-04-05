@@ -10,18 +10,20 @@ class Pixiv():
         self.base_url = 'https://www.pixiv.net'
         self.login_url = 'https://accounts.pixiv.net/login' #
         self.post_url = 'https://accounts.pixiv.net/api/login?lang=en' # login之後查看 XHR 找到 'login?lang=en'
+        self.target_url = 'https://www.pixiv.net/member_illust.php?mode=medium&illust_id={}'
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'
         }
         self.post_key = self.get_post_key()
-        self.pixiv_id = '***'
-        self.password = '***'
+        self.pixiv_id = ''
+        self.password = ''
         self.return_to = 'https://www.pixiv.net/'
 
         self.ranking_url = 'https://www.pixiv.net/ranking.php'
         self.load_path = 'image'
         self.mkdir(self.load_path)
         self.login()
+
 
     def get_post_key(self):
         page = self.session.get(self.login_url, headers=self.headers).text # text -> unicode, content -> bytes ref: http://www.python-requests.org/en/latest/api/#classes
@@ -39,10 +41,7 @@ class Pixiv():
         reqs = self.session.post(self.post_url, data=data, headers=self.headers)
         print('Login Message: ' + str(reqs.json()))
 
-    def get_image(self, html):
-        soup = BeautifulSoup(html, 'lxml')
-        thumbnail = soup.find_all('div', {'class': '_layout-thumbnail'})
-        print()
+
     def download_image(self, url, title, href):
         src_headers = self.headers
         src_headers['Referer'] = href
@@ -77,6 +76,41 @@ class Pixiv():
         if not os.path.exists(path):
             os.makedirs(path)
 
+    def get_keyword_topN(self, search_keyword=None, page_num=10):
+        keyword = str(search_keyword.encode('utf-8'))[2:-1].replace('\\x','%')
+        # print(keyword)
+        url = 'https://www.pixiv.net/search.php?word={}&order=date_d&p='
+        for page in range(page_num):
+            target_url = url.format(keyword) + str(page + 1)
+            # print(target_url)
+            html = self.session.get(target_url, headers=self.headers).text
+            # print(html)
+            soup = BeautifulSoup(html, 'lxml')
+            # print(soup)
+            data_list = soup.find_all('input', {'id': 'js-mount-point-search-result-list'})[0] # 大膽假設每頁只有一個result list
+            data = data_list['data-items']
+            # print(data)
+            id_list = re.findall('"illustId":"(.+?)"', data)[:3]
+
+            for id in id_list:
+                id_url = self.target_url.format(id)
+                print(id_url)
+                html = self.session.get(id_url, headers=self.headers).text
+                print(html)
+                img_src = re.search('"regular":"(.+?)",', html).group(1)
+                img_src = img_src.replace('\\', '')
+                img_title = re.search('title>(.*?)】「(.*?)」', html).group(2)
+                print(img_src)
+                print(img_title)
+                self.download_image(img_src, img_title, id_url)
+
+
+
+
+
+
 
 pixiv = Pixiv()
-pixiv.get_ranking(img_num=10)
+# pixiv.get_ranking(img_num=10)
+pixiv.get_keyword_topN('女の子', page_num=1)
+
