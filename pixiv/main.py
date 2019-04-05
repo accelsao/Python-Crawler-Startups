@@ -14,8 +14,8 @@ class Pixiv():
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'
         }
         self.post_key = self.get_post_key()
-        self.pixiv_id = 'sayuri002'
-        self.password = 'jay1000359'
+        self.pixiv_id = '***'
+        self.password = '***'
         self.return_to = 'https://www.pixiv.net/'
 
         self.ranking_url = 'https://www.pixiv.net/ranking.php'
