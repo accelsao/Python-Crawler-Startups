@@ -5,8 +5,8 @@
 - [ ] get ranking mode daily
 - [ ] get ranking mode monthly
 - [ ] get specific author's works
--[ ] add multithread
--[ ] add time count
+- [ ] add multithread
+- [ ] add time count
 
 
 
