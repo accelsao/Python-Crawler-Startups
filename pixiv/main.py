@@ -18,7 +18,7 @@ class Pixiv():
         }
         self.post_key = self.get_post_key()
         self.pixiv_id = 'sayuri002'
-        self.password = 'jay1000359'
+        self.password = ''
         self.return_to = 'https://www.pixiv.net/'
 
         self.ranking_url = 'https://www.pixiv.net/ranking.php'
