@@ -1,16 +1,17 @@
 - [X] search keyword sort_key= newest
 - [X] search keyword sort_key= bookmark
 - [ ] search keyword sort_key= bookmark accelerate
-- [X] get ranking mode weekly
-- [ ] get ranking mode daily
-- [ ] get ranking mode monthly
-- [ ] get specific author's works
+- [X] get ranking mode daily, weekly, monthly, 
+- [X] get specific author's works (need author id)
 - [ ] add multithread
 - [ ] add time count
+- [ ] write clean code
+- [ ] add error raise
 
+## Notes
+html source code 找不到的data 可能是用 ajax 動態生成
 
-
-[Online regex tester and debugger](https://regex101.com/r/tUxrBG/1)
+查看 google chrome F12 -> Network -> XHR (沒有須重新訪問 F5頁面) -> 找到檔案的response 可能就有數據了
 
 ## Reference
 [从零开始的Pixiv排行榜爬虫](https://zhuanlan.zhihu.com/p/26685820)

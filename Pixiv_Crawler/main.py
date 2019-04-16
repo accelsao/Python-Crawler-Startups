@@ -7,7 +7,7 @@ import heapq
 
 
 class Pixiv():
-    def __init__(self):
+    def __init__(self, pixiv_id, password):
         self.session = requests.Session()
         self.base_url = 'https://www.pixiv.net'
         self.login_url = 'https://accounts.pixiv.net/login' #
@@ -15,10 +15,13 @@ class Pixiv():
         self.target_url = 'https://www.pixiv.net/member_illust.php?mode=medium&illust_id={}'
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'
+
         }
+
         self.post_key = self.get_post_key()
-        self.pixiv_id = 'sayuri002'
-        self.password = ''
+        print('Get post key sucessfully')
+        self.pixiv_id = pixiv_id
+        self.password = password
         self.return_to = 'https://www.pixiv.net/'
 
         self.ranking_url = 'https://www.pixiv.net/ranking.php'
@@ -63,14 +66,19 @@ class Pixiv():
     def get_ranking(self, mode='weekly', img_num=50):
         html = self.session.get(self.ranking_url + '?mode={}'.format(mode), headers = self.headers).text
         soup = BeautifulSoup(html, 'lxml')
+        # print(soup)
         divs = soup.find_all('div', {'class': 'ranking-image-item'})
+        # print(divs)
         url_list = [div.a['href'] for div in divs][:img_num]
+        # print(url_list)
         for url in url_list:
             html = self.session.get(self.base_url + url).text
+            # print(html)
             img_src = re.search('"regular":"(.+?)",',html).group(1)
             img_src = img_src.replace('\\', '')
             # print(html)
-            img_title = re.search('title>【(.*?)】「(.*?)」',html).group(2)
+
+            img_title = re.search('title>.*?【(.*?)】「(.*?)」',html).group(2)
             # print(img_title)
             self.download_image(img_src, img_title, self.base_url + url)
 
@@ -123,13 +131,33 @@ class Pixiv():
             # print(a['bookmarkCount'])
             #     self.download_image(img_src, img_title, id_url)
 
+    def get_authors(self, author_id, num=10):
+        # src_headers = self.headers
+        # src_headers['Referer'] = 'https://www.pixiv.net/member.php?id={}'.format(author_id)
+        # url = self.base_url + '/member.php?id={}'.format(author_id)
+        # https: // www.pixiv.net / ajax / user / 853087 / profile / all
+        url = self.base_url + '/ajax/user/{}/profile/all'.format(author_id)
+        print(url)
+        html = self.session.get(url, headers=self.headers).text
+        illusts = re.findall('"illusts":{(.*)}', html)[0]
+        # print(type(illusts))
+        id_list = re.findall("\d+", illusts)[:10]
+        # print(id_list)
+        for id in id_list:
+            id_url = self.target_url.format(id)
+            html = self.session.get(id_url, headers=self.headers).text
+            img_src = re.search('"regular":"(.+?)",', html).group(1)
+            img_src = img_src.replace('\\', '')
+            img_title = re.search('title>(.*?)】「(.*?)」', html).group(2)
+            self.download_image(img_src, img_title, id_url)
 
 
 
 
+if __name__ == '__main__':
 
-
-pixiv = Pixiv()
-# pixiv.get_ranking(img_num=10)
-pixiv.get_keyword_topN('少女前線', page_num=8, bookmarkThreshold=1000)  # 超慢
+    pixiv = Pixiv(pixiv_id=None, password=None)
+    # pixiv.get_ranking(mode='weekly', img_num=5)
+    pixiv.get_authors(author_id=853087, num=10)
+    # pixiv.get_keyword_topN('少女前線', page_num=8, bookmarkThreshold=1000)  # To Slow , need speed up , maybe by pool
 
