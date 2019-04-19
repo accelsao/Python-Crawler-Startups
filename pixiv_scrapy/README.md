@@ -2,6 +2,9 @@
 1. https://stackoverflow.com/questions/38772662/scrapy-images-downloading
 
 2. https://github.com/littleVege/pixiv_crawl
+
+3. https://docs.scrapy.org/en/latest/intro/tutorial.html
+
 # Need
 pip install pypiwin32
 

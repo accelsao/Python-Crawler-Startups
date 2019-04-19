@@ -24,7 +24,7 @@ IMAGES_STORE = 'pixiv_scrapy/images'
 
 #########USER INFO
 PIXIV_USER_NAME = 'sayuri002'	#在此设置登录用户名
-PIXIV_USER_PASS = 'jay1000359'	#在此设置登录密码
+PIXIV_USER_PASS = '***'	#在此设置登录密码
 
 
 # START_DATE = datetime.datetime.today()
