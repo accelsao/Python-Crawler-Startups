@@ -2,7 +2,6 @@
 
 import scrapy
 
-
 class PixivScrapyItem(scrapy.Item):
     title = scrapy.Field()
     date = scrapy.Field()
@@ -10,13 +9,11 @@ class PixivScrapyItem(scrapy.Item):
     user_name = scrapy.Field()
     rank = scrapy.Field()
     yes_rank = scrapy.Field()
-    total_score = scrapy.Field()
+    rating_count = scrapy.Field()
     views = scrapy.Field()
     is_sexual = scrapy.Field()
     illust_id = scrapy.Field()
     tags = scrapy.Field()
     url = scrapy.Field()
     image_paths = scrapy.Field()
-
-    image_urls = scrapy.Field()
-    images = scrapy.Field()
+    img_urls = scrapy.Field()

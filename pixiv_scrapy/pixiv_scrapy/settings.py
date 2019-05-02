@@ -18,17 +18,40 @@ NEWSPIDER_MODULE = 'pixiv_scrapy.spiders'
 
 
 ITEM_PIPELINES = {
-   'pixiv_scrapy.pipelines.PixivImagesPipeline': 1,
+    'pixiv_scrapy.pipelines.PixivImagesPipeline': 1,
+    'pixiv_scrapy.pipelines.PixivMetaPipeline': 10
 }
-IMAGES_STORE = 'pixiv_scrapy/images'
+IMAGES_STORE = 'pixiv_scrapy/images/'
 
 #########USER INFO
-PIXIV_USER_NAME = 'sayuri002'	#在此设置登录用户名
-PIXIV_USER_PASS = '***'	#在此设置登录密码
+PIXIV_USER_NAME = ''
+PIXIV_USER_PASS = ''
+
+# START_DATE = datetime.datetime.today().date()
+START_DATE = datetime.date(2019, 4, 1)
 
 
-# START_DATE = datetime.datetime.today()
-START_DATE = datetime.date(2015,9,10)
+__PIXIV_MODES__ = [
+    'daily',        #0 每日热榜
+    'weekly',       #1 每周热榜
+    'monthly',      #2 每月热榜
+    'male',         #3 男性关注
+    'female',       #4 女性关注
+    'daily_r18',    #5 福利
+    'weekly_r18',   #6 福利
+    'male_r18',     #7 福利
+    'female_r18'    #8 福利
+]
+__SELECT_MODE_IDX__ = 6 #在此设置对应索引号
+SELECT_MODE = __PIXIV_MODES__[__SELECT_MODE_IDX__]  #无需设置，自动生成，供程序使用
+########GENERATE IMAGE STORE
+IMAGES_STORE = IMAGES_STORE + '{mode}/{year}{month}{day}'.format(
+                        year=START_DATE.year,
+                        month=str(START_DATE.month).zfill(2),
+                        day=str(START_DATE.day).zfill(2),
+                        mode = SELECT_MODE
+                )
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'pixiv_scrapy (+http://www.yourdomain.com)'

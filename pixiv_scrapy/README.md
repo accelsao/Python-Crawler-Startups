@@ -1,22 +1,33 @@
+# TODO
+- [ ] Customize filename Title w/o full/hash [here](https://stackoverflow.com/questions/18081997/scrapy-customize-image-pipeline-with-renaming-defualt-image-name)
+- [ ] Arrange Code 
+
 # Reference
-1. https://stackoverflow.com/questions/38772662/scrapy-images-downloading
+1. [Scrapy Images Downloading - StackOverflow](https://stackoverflow.com/questions/38772662/scrapy-images-downloading)
 
-2. https://github.com/littleVege/pixiv_crawl
+2. [littleVege/pixiv_crawl](https://github.com/littleVege/pixiv_crawl)
 
-3. https://docs.scrapy.org/en/latest/intro/tutorial.html
+3.  [Scrapy Tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html)
 
-# Need
+# Installation
 pip install pypiwin32
 
 pip install Pillow
 
 pip install scrapy
-# 需要用到的command
+# Scrapy Command tips
 
 cd PycharmProjects/pixiv_scrapy
 
-scrapy shell "https://accounts.pixiv.net/login?lang=zh_tw"
-
 scrapy crawl pixiv
 
+scrapy shell "https://accounts.pixiv.net/login?lang=zh_tw"
+
 scrapy crawl pixiv -o pixiv.json
+
+# User Configuration
+* IMAGES_STORE 圖片位置
+* PIXIV_USER_NAME 帳號
+* PIXIV_USER_PASS 密碼
+* START_DATE 開始時間
+* SELECT_MODE_IDX 模式選擇
