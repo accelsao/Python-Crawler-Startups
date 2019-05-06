@@ -1,13 +1,17 @@
 # TODO
 - [ ] Customize filename Title w/o full/hash [here](https://stackoverflow.com/questions/18081997/scrapy-customize-image-pipeline-with-renaming-defualt-image-name)
-- [ ] Arrange Code 
+- [ ] Find by author_id
+- [ ] Find Keyword
+- [ ] Learn MiddleWare
 
 # Reference
 1. [Scrapy Images Downloading - StackOverflow](https://stackoverflow.com/questions/38772662/scrapy-images-downloading)
 
 2. [littleVege/pixiv_crawl](https://github.com/littleVege/pixiv_crawl)
 
-3.  [Scrapy Tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html)
+3. [Scrapy Tutorial](https://docs.scrapy.org/en/latest/intro/tutorial.html)
+
+4. [Scrapy 1.6 documentation](https://docs.scrapy.org/en/latest/index.html)
 
 # Installation
 pip install pypiwin32

@@ -15,43 +15,52 @@ BOT_NAME = 'pixiv_scrapy'
 
 SPIDER_MODULES = ['pixiv_scrapy.spiders']
 NEWSPIDER_MODULE = 'pixiv_scrapy.spiders'
+DEFAULT_ITEM_CLASS = 'pixiv.items'
 
 
 ITEM_PIPELINES = {
     'pixiv_scrapy.pipelines.PixivImagesPipeline': 1,
     'pixiv_scrapy.pipelines.PixivMetaPipeline': 10
 }
-IMAGES_STORE = 'pixiv_scrapy/images/'
+#################### IMAGE LIMITES ####################
+IMAGE_LIMITS = 5
+#################### IMAGE LIMITES ####################
+#################### USER INFO ####################
+PIXIV_USER_NAME = 'x'
+PIXIV_USER_PASSWORD = 'x'
+#################### USER INFO ####################
 
-#########USER INFO
-PIXIV_USER_NAME = ''
-PIXIV_USER_PASS = ''
+#################### Date ####################
+START_DATE = datetime.datetime.today().date()
+# START_DATE = datetime.date(2019, 4, 1)
+#################### Date ####################
 
-# START_DATE = datetime.datetime.today().date()
-START_DATE = datetime.date(2019, 4, 1)
-
-
+#################### MODE ####################
 __PIXIV_MODES__ = [
-    'daily',        #0 每日热榜
-    'weekly',       #1 每周热榜
-    'monthly',      #2 每月热榜
-    'male',         #3 男性关注
-    'female',       #4 女性关注
-    'daily_r18',    #5 福利
-    'weekly_r18',   #6 福利
-    'male_r18',     #7 福利
-    'female_r18'    #8 福利
+    'daily',        # 0
+    'weekly',      # 1
+    'monthly',     # 2
+    'male',        # 3
+    'female',      # 4
+    'daily_r18',    # 5
+    'weekly_r18',  # 6
+    'male_r18',    # 7
+    'female_r18'   # 8
 ]
-__SELECT_MODE_IDX__ = 6 #在此设置对应索引号
-SELECT_MODE = __PIXIV_MODES__[__SELECT_MODE_IDX__]  #无需设置，自动生成，供程序使用
-########GENERATE IMAGE STORE
+__SELECT_MODE_IDX__ = 1
+SELECT_MODE = __PIXIV_MODES__[__SELECT_MODE_IDX__]
+#################### MODE ####################
+
+
+#################### IMAGE PATH ####################
+IMAGES_STORE = 'pixiv_scrapy/images/'
 IMAGES_STORE = IMAGES_STORE + '{mode}/{year}{month}{day}'.format(
                         year=START_DATE.year,
                         month=str(START_DATE.month).zfill(2),
                         day=str(START_DATE.day).zfill(2),
                         mode = SELECT_MODE
                 )
-
+#################### IMAGE PATH ####################
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'pixiv_scrapy (+http://www.yourdomain.com)'
